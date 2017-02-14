@@ -7,3 +7,6 @@
 [submodule "Web.TypeScript"]
 	path = Web.TypeScript
 	url = https://github.com/digovc/Web.TypeScript.git
+[submodule "Persistencia"]
+	path = Persistencia
+	url = http://servidor.relatar.com.br:8080/tfs/Relatar/_git/NetZ.Persistencia
