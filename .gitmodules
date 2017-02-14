@@ -1,0 +1,9 @@
+[submodule "Web"]
+	path = Web
+	url = https://github.com/digovc/Web.git
+[submodule "DigoFramework"]
+	path = DigoFramework
+	url = https://github.com/digovc/DigoFramework.git
+[submodule "Web.TypeScript"]
+	path = Web.TypeScript
+	url = https://github.com/digovc/Web.TypeScript.git

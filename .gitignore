@@ -1,0 +1,9 @@
+/.vs
+/Drive.TypeScript/bin
+/Drive.TypeScript/obj
+/Principal.TypeScript/bin
+/Principal.TypeScript/obj
+/Principal/.vs
+/Principal/bin
+/Principal/obj
+*.csproj.user
