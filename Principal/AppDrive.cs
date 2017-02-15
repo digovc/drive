@@ -1,8 +1,8 @@
 ﻿using DigoFramework;
 using Drive.Server;
+using Drive.Server.WebSocket;
 using NetZ.Web;
 using NetZ.Web.Server;
-using System;
 using System.Collections.Generic;
 
 namespace Drive
@@ -44,12 +44,6 @@ namespace Drive
 
         #region Métodos
 
-        #endregion Métodos
-
-        #region Eventos
-
-        #endregion Eventos
-
         protected override ConfigWebBase getObjConfig()
         {
             return ConfigDrive.i;
@@ -57,12 +51,20 @@ namespace Drive
 
         protected override TemaBase getObjTema()
         {
-            throw new NotImplementedException();
+            return new TemaDrive();
         }
 
         protected override void inicializarLstSrv(List<ServerBase> lstSrv)
         {
             lstSrv.Add(new SrvHttpDrive());
+
+            lstSrv.Add(SrvWsDrive.i);
         }
+
+        #endregion Métodos
+
+        #region Eventos
+
+        #endregion Eventos
     }
 }

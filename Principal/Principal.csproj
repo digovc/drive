@@ -44,8 +44,14 @@
   <ItemGroup>
     <Compile Include="ConfigDrive.cs" />
     <Compile Include="AppDrive.cs" />
+    <Compile Include="Html\Componente\ActionBarDrive.cs" />
+    <Compile Include="Html\Componente\MenuDrive.cs" />
+    <Compile Include="Html\Pagina\PagPrincipalDrive.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Server\SrvHttpDrive.cs" />
+    <Compile Include="Server\WebSocket\ClienteWsDrive.cs" />
+    <Compile Include="Server\WebSocket\SrvWsDrive.cs" />
+    <Compile Include="TemaDrive.cs" />
     <Compile Include="WinService.cs">
       <SubType>Component</SubType>
     </Compile>

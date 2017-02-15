@@ -12,6 +12,9 @@ namespace Drive
 
         private static ConfigDrive _i;
 
+        private string _dirRepositorio;
+        private int _intSrvWsDrivePorta = 8281;
+
         public new static ConfigDrive i
         {
             get
@@ -24,6 +27,32 @@ namespace Drive
                 _i = new ConfigDrive();
 
                 return _i;
+            }
+        }
+
+        public string dirRepositorio
+        {
+            get
+            {
+                return _dirRepositorio;
+            }
+
+            set
+            {
+                _dirRepositorio = value;
+            }
+        }
+
+        public int intSrvWsDrivePorta
+        {
+            get
+            {
+                return _intSrvWsDrivePorta;
+            }
+
+            set
+            {
+                _intSrvWsDrivePorta = value;
             }
         }
 
