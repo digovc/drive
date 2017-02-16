@@ -20,7 +20,7 @@ module Drive
         // #region Constantes
 
         private static get STR_METODO_PASTA_CONTEUDO(): string { return "STR_METODO_PASTA_CONTEUDO" };
-        private static get STR_METODO_PASTA_LISTAR(): string { return "STR_METODO_PASTA_LISTAR" };
+        private static get STR_METODO_PASTA_CONTEUDO_VAZIO(): string { return "STR_METODO_PASTA_CONTEUDO_VAZIO" };
 
         // #endregion Constantes
 
@@ -53,6 +53,21 @@ module Drive
 
         // #region Métodos
 
+        public abrirConteudo(arq: ArquivoDominio): void
+        {
+            if (arq == null)
+            {
+                return;
+            }
+
+            if (!arq.booPasta)
+            {
+                return;
+            }
+
+            this.enviar(new Interlocutor(SrvWsDrive.STR_METODO_PASTA_CONTEUDO, arq));
+        }
+
         private carregarConteudo(objInterlocutor: Interlocutor): void
         {
             var arrArqAny = objInterlocutor.getObjJson<Array<any>>();
@@ -74,6 +89,11 @@ module Drive
             PagPrincipalDrive.i.carregarConteudo(arrArq);
         }
 
+        private carregarConteudoVazio(): void
+        {
+            PagPrincipalDrive.i.carregarConteudoVazio();
+        }
+
         protected getIntPorta(): number
         {
             return ConstanteManager.i.getIntConstante(SrvWsDrive.name + "_intPorta");
@@ -83,7 +103,7 @@ module Drive
         {
             super.processarOnOpenLocal(arg);
 
-            this.enviar(new Interlocutor(SrvWsDrive.STR_METODO_PASTA_LISTAR));
+            this.enviar(new Interlocutor(SrvWsDrive.STR_METODO_PASTA_CONTEUDO));
         }
 
         protected processarMessage(objInterlocutor: Interlocutor): boolean
@@ -102,6 +122,10 @@ module Drive
             {
                 case SrvWsDrive.STR_METODO_PASTA_CONTEUDO:
                     this.carregarConteudo(objInterlocutor);
+                    return true;
+
+                case SrvWsDrive.STR_METODO_PASTA_CONTEUDO_VAZIO:
+                    this.carregarConteudoVazio();
                     return true;
             }
 

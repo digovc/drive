@@ -12,6 +12,39 @@ namespace Drive.Html.Componente
 
         #region Atributos
 
+        private Div _divConteudo;
+        private Div _divVazio;
+
+        private Div divConteudo
+        {
+            get
+            {
+                if (_divConteudo != null)
+                {
+                    return _divConteudo;
+                }
+
+                _divConteudo = new Div();
+
+                return _divConteudo;
+            }
+        }
+
+        private Div divVazio
+        {
+            get
+            {
+                if (_divVazio != null)
+                {
+                    return _divVazio;
+                }
+
+                _divVazio = new Div();
+
+                return _divVazio;
+            }
+        }
+
         #endregion Atributos
 
         #region Construtores
@@ -37,6 +70,16 @@ namespace Drive.Html.Componente
             base.inicializar();
 
             this.strId = this.GetType().Name;
+
+            this.divVazio.strConteudo = "Nada por aqui Jhoe.";
+        }
+
+        protected override void montarLayout()
+        {
+            base.montarLayout();
+
+            this.divVazio.setPai(this);
+            this.divConteudo.setPai(this);
         }
 
         protected override void setCss(CssArquivo css)
@@ -45,6 +88,24 @@ namespace Drive.Html.Componente
 
             this.addCss(css.setMarginTop(50));
             this.addCss(css.setPaddingTop(10));
+
+            this.divVazio.addCss(css.setBackgroundImage("https://image.freepik.com/free-icon/desert_318-106452.jpg"));
+            this.divVazio.addCss(css.setBackgroundPosition("center 0px"));
+            this.divVazio.addCss(css.setBackgroundRepeat("no-repeat"));
+            this.divVazio.addCss(css.setBackgroundSize("100px"));
+            this.divVazio.addCss(css.setDisplay("none"));
+            this.divVazio.addCss(css.setHeight(200));
+            this.divVazio.addCss(css.setLineHeight(250));
+            this.divVazio.addCss(css.setMarginTop(100));
+            this.divVazio.addCss(css.setTextAlign("center"));
+        }
+
+        protected override void setStrId(string strId)
+        {
+            base.setStrId(strId);
+
+            this.divConteudo.strId = (strId + "_divConteudo");
+            this.divVazio.strId = (strId + "_divVazio");
         }
 
         #endregion Métodos

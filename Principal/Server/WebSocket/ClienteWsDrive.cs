@@ -1,5 +1,4 @@
-﻿using DigoFramework;
-using Drive.DataBase.Dominio;
+﻿using Drive.DataBase.Dominio;
 using NetZ.Web.Server;
 using NetZ.Web.Server.WebSocket;
 using System.Collections.Generic;
@@ -13,7 +12,7 @@ namespace Drive.Server.WebSocket
         #region Constantes
 
         private const string STR_METODO_PASTA_CONTEUDO = "STR_METODO_PASTA_CONTEUDO";
-        private const string STR_METODO_PASTA_LISTAR = "STR_METODO_PASTA_LISTAR";
+        private const string STR_METODO_PASTA_CONTEUDO_VAZIO = "STR_METODO_PASTA_CONTEUDO_VAZIO";
 
         #endregion Constantes
 
@@ -61,21 +60,28 @@ namespace Drive.Server.WebSocket
 
             switch (objInterlocutor.strMetodo)
             {
-                case STR_METODO_PASTA_LISTAR:
-                    this.listarPasta(objInterlocutor);
+                case STR_METODO_PASTA_CONTEUDO:
+                    this.abrirConteudo(objInterlocutor);
                     return true;
             }
 
             return false;
         }
 
-        private void listarPasta(Interlocutor objInterlocutor)
+        private void abrirConteudo(Interlocutor objInterlocutor)
         {
             string dir = string.Empty;
 
             if (objInterlocutor.objData != null)
             {
-                dir = Path.Combine(ConfigDrive.i.dirRepositorio, objInterlocutor.objData.ToString());
+                var arq = objInterlocutor.getObjJson<ArquivoDominio>();
+
+                if (arq == null)
+                {
+                    return;
+                }
+
+                dir = (ConfigDrive.i.dirRepositorio + arq.dir);
             }
             else
             {
@@ -93,6 +99,7 @@ namespace Drive.Server.WebSocket
 
             if (lstArq.Count < 1)
             {
+                this.enviar(new Interlocutor(STR_METODO_PASTA_CONTEUDO_VAZIO));
                 return;
             }
 
@@ -117,7 +124,7 @@ namespace Drive.Server.WebSocket
             var arqPasta = new ArquivoDominio();
 
             arqPasta.booPasta = booPasta;
-            arqPasta.dir = dirPasta.Replace(ConfigDrive.i.dirRepositorio, null);
+            arqPasta.dir = dirPasta.Replace(ConfigDrive.i.dirRepositorio, null).Replace("\\", "/");
             arqPasta.dttAlteracao = Directory.GetLastWriteTime(dirPasta);
             arqPasta.dttCadastro = Directory.GetCreationTime(dirPasta);
             arqPasta.strNome = Path.GetFileName(dirPasta);

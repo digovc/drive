@@ -33,6 +33,7 @@ module Drive
         }
 
         private _divActionBarDrive: ActionBarDrive;
+        private _divArquivoViewer: ArquivoViewer;
         private _divMenuDrive: MenuDrive;
 
         public get divActionBarDrive(): ActionBarDrive
@@ -46,8 +47,6 @@ module Drive
 
             return this._divActionBarDrive;
         }
-
-        private _divArquivoViewer: ArquivoViewer;
 
         private get divArquivoViewer(): ArquivoViewer
         {
@@ -83,6 +82,11 @@ module Drive
         public carregarConteudo(arrArq: Array<ArquivoDominio>): void
         {
             this.divArquivoViewer.carregarConteudo(arrArq);
+        }
+
+        public carregarConteudoVazio(): void
+        {
+            this.divArquivoViewer.carregarConteudoVazio();
         }
 
         protected inicializar(): void

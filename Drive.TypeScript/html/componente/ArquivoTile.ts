@@ -1,5 +1,7 @@
-﻿/// <reference path="../../../Web.TypeScript/html/componente/mobile/TileBase.ts"/>
+﻿/// <reference path="../../../Web.TypeScript/erro/Erro.ts"/>
+/// <reference path="../../../Web.TypeScript/html/componente/mobile/TileBase.ts"/>
 /// <reference path="../../../Web.TypeScript/html/Div.ts"/>
+/// <reference path="../../../Web.TypeScript/OnClickListener.ts"/>
 /// <reference path="../../../Web.TypeScript/Utils.ts"/>
 
 module Drive
@@ -7,6 +9,8 @@ module Drive
     // #region Importações
 
     import Div = Web.Div;
+    import Erro = Web.Erro;
+    import OnClickListener = Web.OnClickListener;
     import TileBase = Web.TileBase;
     import Utils = Web.Utils;
 
@@ -15,7 +19,7 @@ module Drive
     // #region Enumerados
     // #endregion Enumerados
 
-    export class ArquivoTile extends TileBase
+    export class ArquivoTile extends TileBase implements OnClickListener
     {
         // #region Constantes
         // #endregion Constantes
@@ -88,6 +92,33 @@ module Drive
 
         // #region Métodos
 
+        private abrir(): void
+        {
+            if (this.arq == null)
+            {
+                return;
+            }
+
+            if (this.arq.booPasta)
+            {
+                this.abrirConteudo();
+            }
+            else
+            {
+                this.abrirDetalhe();
+            }
+        }
+
+        private abrirConteudo(): void
+        {
+            SrvWsDrive.i.abrirConteudo(this.arq);
+        }
+
+        private abrirDetalhe(): void
+        {
+
+        }
+
         protected inicializar(): void
         {
             super.inicializar();
@@ -132,9 +163,34 @@ module Drive
             return strLayoutFixo;
         }
 
+        protected setEventos(): void
+        {
+            super.setEventos();
+
+            this.addEvtOnClickListener(this);
+        }
+
         // #endregion Métodos
 
         // #region Eventos
+
+        public onClick(objSender: Object, arg: JQueryEventObject): void
+        {
+            try
+            {
+                switch (objSender)
+                {
+                    case this:
+                        this.abrir();
+                        return;
+                }
+            }
+            catch (ex)
+            {
+                new Erro("Erro desconhecido.", ex);
+            }
+        }
+
         // #endregion Eventos
     }
 }

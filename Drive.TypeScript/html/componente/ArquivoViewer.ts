@@ -1,10 +1,12 @@
 ﻿/// <reference path="../../../Web.TypeScript/html/componente/ComponenteHtml.ts"/>
+/// <reference path="../../../Web.TypeScript/html/Div.ts"/>
 
 module Drive
 {
     // #region Importações
 
     import ComponenteHtml = Web.ComponenteHtml;
+    import Div = Web.Div;
 
     // #endregion Importações
 
@@ -19,6 +21,8 @@ module Drive
         // #region Atributos
 
         private _arrArq: Array<ArquivoDominio>;
+        private _divConteudo: Div;
+        private _divVazio: Div;
 
         private get arrArq(): Array<ArquivoDominio>
         {
@@ -28,6 +32,30 @@ module Drive
         private set arrArq(arrArq: Array<ArquivoDominio>)
         {
             this._arrArq = arrArq;
+        }
+
+        private get divConteudo(): Div
+        {
+            if (this._divConteudo != null)
+            {
+                return this._divConteudo;
+            }
+
+            this._divConteudo = new Div(this.strId + "_divConteudo");
+
+            return this._divConteudo;
+        }
+
+        private get divVazio(): Div
+        {
+            if (this._divVazio != null)
+            {
+                return this._divVazio;
+            }
+
+            this._divVazio = new Div(this.strId + "_divVazio");
+
+            return this._divVazio;
         }
 
         // #endregion Atributos
@@ -52,24 +80,28 @@ module Drive
 
             var divArq = new ArquivoTile(this.arrArq.indexOf(arq), arq);
 
-            this.jq.append(divArq.strLayoutFixo);
+            this.divConteudo.jq.append(divArq.strLayoutFixo);
 
             divArq.iniciar();
         }
 
         private atualizarConteudo(): void
         {
-            this.strConteudo = null;
+            this.divConteudo.strConteudo = null;
 
             if (this.arrArq == null)
             {
+                this.divVazio.mostrar();
                 return;
             }
 
             if (this.arrArq.length < 1)
             {
+                this.divVazio.mostrar();
                 return;
             }
+
+            this.divVazio.esconder();
 
             this.arrArq.forEach((arq) => { this.addArquivo(arq) });
         }
@@ -87,6 +119,13 @@ module Drive
             }
 
             this.arrArq = arrArq;
+
+            this.atualizarConteudo();
+        }
+
+        public carregarConteudoVazio(): void
+        {
+            this.arrArq = null;
 
             this.atualizarConteudo();
         }
