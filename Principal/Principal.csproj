@@ -38,13 +38,18 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConfigDrive.cs" />
     <Compile Include="AppDrive.cs" />
+    <Compile Include="DataBase\Dominio\ArquivoDominio.cs" />
+    <Compile Include="DataBase\Dominio\DominioDriveBase.cs" />
     <Compile Include="Html\Componente\ActionBarDrive.cs" />
+    <Compile Include="Html\Componente\ArquivoTile.cs" />
+    <Compile Include="Html\Componente\ArquivoViewer.cs" />
     <Compile Include="Html\Componente\MenuDrive.cs" />
     <Compile Include="Html\Pagina\PagPrincipalDrive.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -60,6 +65,10 @@
     <ProjectReference Include="..\DigoFramework\DigoFramework.csproj">
       <Project>{93078de5-a910-4ad6-a942-657582105493}</Project>
       <Name>DigoFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Persistencia\NetZ.Persistencia.csproj">
+      <Project>{5FDEBACF-1812-47A0-8FBA-25DB3AD2B31C}</Project>
+      <Name>NetZ.Persistencia</Name>
     </ProjectReference>
     <ProjectReference Include="..\Web\NetZ.Web.csproj">
       <Project>{bf12701f-12d8-41d0-9269-d8921568aa82}</Project>

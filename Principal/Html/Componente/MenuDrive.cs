@@ -1,4 +1,5 @@
 ﻿using NetZ.Web.Html.Componente.Mobile;
+using NetZ.Web.Server.Arquivo.Css;
 
 namespace Drive.Html.Componente
 {
@@ -28,6 +29,13 @@ namespace Drive.Html.Componente
             base.inicializar();
 
             this.strId = this.GetType().Name;
+        }
+
+        protected override void setCss(CssArquivo css)
+        {
+            base.setCss(css);
+
+            this.addCss(css.setZIndex(10));
         }
 
         #endregion Métodos

@@ -47,6 +47,20 @@ module Drive
             return this._divActionBarDrive;
         }
 
+        private _divArquivoViewer: ArquivoViewer;
+
+        private get divArquivoViewer(): ArquivoViewer
+        {
+            if (this._divArquivoViewer != null)
+            {
+                return this._divArquivoViewer;
+            }
+
+            this._divArquivoViewer = new ArquivoViewer();
+
+            return this._divArquivoViewer;
+        }
+
         private get divMenuDrive(): MenuDrive
         {
             if (this._divMenuDrive != null)
@@ -66,11 +80,17 @@ module Drive
 
         // #region Métodos
 
+        public carregarConteudo(arrArq: Array<ArquivoDominio>): void
+        {
+            this.divArquivoViewer.carregarConteudo(arrArq);
+        }
+
         protected inicializar(): void
         {
             super.inicializar();
 
             this.divActionBarDrive.iniciar();
+            this.divArquivoViewer.iniciar();
             this.divMenuDrive.iniciar();
         }
 

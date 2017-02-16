@@ -1,9 +1,10 @@
-﻿using NetZ.Web.Html.Componente.Mobile;
+﻿using NetZ.Web.Html;
+using NetZ.Web.Html.Componente;
 using NetZ.Web.Server.Arquivo.Css;
 
 namespace Drive.Html.Componente
 {
-    internal class ActionBarDrive : ActionBarBase
+    internal class ArquivoViewer : ComponenteHtml
     {
         #region Constantes
 
@@ -18,6 +19,13 @@ namespace Drive.Html.Componente
         #endregion Construtores
 
         #region Métodos
+
+        protected override void addLayoutFixo(JavaScriptTag tagJs)
+        {
+            base.addLayoutFixo(tagJs);
+
+            tagJs.addLayoutFixo(typeof(ArquivoTile));
+        }
 
         protected override bool getBooJs()
         {
@@ -35,7 +43,8 @@ namespace Drive.Html.Componente
         {
             base.setCss(css);
 
-            this.addCss(css.setZIndex(10));
+            this.addCss(css.setMarginTop(50));
+            this.addCss(css.setPaddingTop(10));
         }
 
         #endregion Métodos

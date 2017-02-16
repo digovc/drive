@@ -4,6 +4,7 @@ using Drive.Server.WebSocket;
 using NetZ.Web;
 using NetZ.Web.Server;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Drive
 {
@@ -52,6 +53,21 @@ namespace Drive
         protected override TemaBase getObjTema()
         {
             return new TemaDrive();
+        }
+
+        protected override void inicializar()
+        {
+            base.inicializar();
+
+            if (string.IsNullOrEmpty(ConfigDrive.i.dirRepositorio))
+            {
+                new Erro("O repositório de arquivos não foi indicado.");
+            }
+            else
+            {
+                Directory.CreateDirectory(ConfigDrive.i.dirRepositorio);
+            }
+
         }
 
         protected override void inicializarLstSrv(List<ServerBase> lstSrv)
