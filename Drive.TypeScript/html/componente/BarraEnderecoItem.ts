@@ -1,4 +1,6 @@
-﻿/// <reference path="../../../Web.TypeScript/html/componente/ComponenteHtml.ts"/>
+﻿/// <reference path="../../../Web.TypeScript/erro/Erro.ts"/>
+/// <reference path="../../../Web.TypeScript/html/componente/ComponenteHtml.ts"/>
+/// <reference path="../../../Web.TypeScript/OnClickListener.ts"/>
 /// <reference path="../../../Web.TypeScript/Utils.ts"/>
 
 module Drive
@@ -6,6 +8,8 @@ module Drive
     // #region Importações
 
     import ComponenteHtml = Web.ComponenteHtml;
+    import Erro = Web.Erro;
+    import OnClickListener = Web.OnClickListener;
     import Utils = Web.Utils;
 
     // #endregion Importações
@@ -13,14 +17,27 @@ module Drive
     // #region Enumerados
     // #endregion Enumerados
 
-    export class BarraEnderecoItem extends ComponenteHtml
+    export class BarraEnderecoItem extends ComponenteHtml implements OnClickListener
     {
         // #region Constantes
         // #endregion Constantes
 
         // #region Atributos
 
+        private _arq: ArquivoDominio;
         private _dir: string;
+
+        private get arq(): ArquivoDominio
+        {
+            if (this._arq != null)
+            {
+                return this._arq;
+            }
+
+            this._arq = this.getArq();
+
+            return this._arq;
+        }
 
         private get dir(): string
         {
@@ -46,6 +63,21 @@ module Drive
         // #endregion Construtores
 
         // #region Métodos
+
+        private carregarConteudo(): void
+        {
+            PagPrincipalDrive.i.abrirConteudo(this.arq);
+        }
+
+        private getArq(): ArquivoDominio
+        {
+            var arqResultado = new ArquivoDominio();
+
+            arqResultado.booPasta = true;
+            arqResultado.dir = this.dir;
+
+            return arqResultado;
+        }
 
         protected inicializar(): void
         {
@@ -82,9 +114,34 @@ module Drive
             return strLayoutFixo;
         }
 
+        protected setEventos(): void
+        {
+            super.setEventos();
+
+            this.addEvtOnClickListener(this);
+        }
+
         // #endregion Métodos
 
         // #region Eventos
+
+        public onClick(objSender: Object, arg: JQueryEventObject): void
+        {
+            try
+            {
+                switch (objSender)
+                {
+                    case this:
+                        this.carregarConteudo();
+                        return;
+                }
+            }
+            catch (ex)
+            {
+                new Erro("Erro desconhecido.", ex);
+            }
+        }
+
         // #endregion Eventos
     }
 }

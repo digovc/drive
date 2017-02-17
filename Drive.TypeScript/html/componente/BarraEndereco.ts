@@ -1,5 +1,7 @@
-﻿/// <reference path="../../../Web.TypeScript/html/componente/ComponenteHtml.ts"/>
+﻿/// <reference path="../../../Web.TypeScript/erro/Erro.ts"/>
+/// <reference path="../../../Web.TypeScript/html/componente/ComponenteHtml.ts"/>
 /// <reference path="../../../Web.TypeScript/html/Div.ts"/>
+/// <reference path="../../../Web.TypeScript/OnClickListener.ts"/>
 /// <reference path="../../../Web.TypeScript/Utils.ts"/>
 
 module Drive
@@ -8,6 +10,8 @@ module Drive
 
     import ComponenteHtml = Web.ComponenteHtml;
     import Div = Web.Div;
+    import Erro = Web.Erro;
+    import OnClickListener = Web.OnClickListener;
     import Utils = Web.Utils;
 
     // #endregion Importações
@@ -15,7 +19,7 @@ module Drive
     // #region Enumerados
     // #endregion Enumerados
 
-    export class BarraEndereco extends ComponenteHtml
+    export class BarraEndereco extends ComponenteHtml implements OnClickListener
     {
         // #region Constantes
         // #endregion Constantes
@@ -27,6 +31,20 @@ module Drive
         private _dirTemp: string;
         private _divConteudo: Div;
         private _divHome: Div;
+
+        private _arqHome: ArquivoDominio;
+
+        private get arqHome(): ArquivoDominio
+        {
+            if (this._arqHome != null)
+            {
+                return this._arqHome;
+            }
+
+            this._arqHome = this.getArqHome();
+
+            return this._arqHome;
+        }
 
         private get arrDivBarraEnderecoItem(): Array<BarraEnderecoItem>
         {
@@ -95,9 +113,14 @@ module Drive
 
         // #region Métodos
 
+        private abrirHome(): void
+        {
+            PagPrincipalDrive.i.abrirConteudo(this.arqHome);
+        }
+
         public carregarDiretorio(dir: string): void
         {
-            this.limparHierarquia();
+            this.limparConteudo();
 
             if (Utils.getBooStrVazia(dir))
             {
@@ -144,26 +167,54 @@ module Drive
             divBarraEnderecoItem.iniciar();
         }
 
-        private limparHierarquia(): void
+        private getArqHome(): ArquivoDominio
         {
-            if (this.arrDivBarraEnderecoItem == null)
-            {
-                return;
-            }
+            var arqHomeResultado = new ArquivoDominio();
 
-            if (this.arrDivBarraEnderecoItem.length < 1)
-            {
-                return;
-            }
+            arqHomeResultado.booPasta = true;
+            arqHomeResultado.dir = "/";
 
-            this.arrDivBarraEnderecoItem.forEach((divBarraEnderecoItem) => { divBarraEnderecoItem.dispose() });
+            return arqHomeResultado;
+        }
+
+        public limparConteudo(): void
+        {
+            if (this.arrDivBarraEnderecoItem != null)
+            {
+                this.arrDivBarraEnderecoItem.forEach((divBarraEnderecoItem) => { divBarraEnderecoItem.dispose() });
+            }
 
             this.arrDivBarraEnderecoItem = null;
+        }
+
+        protected setEventos(): void
+        {
+            super.setEventos();
+
+            this.divHome.addEvtOnClickListener(this);
         }
 
         // #endregion Métodos
 
         // #region Eventos
+
+        public onClick(objSender: Object, arg: JQueryEventObject): void
+        {
+            try
+            {
+                switch (objSender)
+                {
+                    case this.divHome:
+                        this.abrirHome();
+                        return;
+                }
+            }
+            catch (ex)
+            {
+                new Erro("Erro desconhecido.", ex);
+            }
+        }
+
         // #endregion Eventos
     }
 }

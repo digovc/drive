@@ -97,6 +97,7 @@ module Drive
         public abrirConteudo(arq: ArquivoDominio): void
         {
             this.divArquivoViewer.limparConteudo();
+            this.divBarraEndereco.limparConteudo();
 
             SrvWsDrive.i.abrirConteudo(arq);
         }

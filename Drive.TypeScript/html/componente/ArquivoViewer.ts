@@ -101,7 +101,7 @@ module Drive
                 return;
             }
 
-            this.divVazio.esconder();
+            this.divVazio.booVisivel = false;
 
             this.arrArq.forEach((arq) => { this.addArquivo(arq) });
         }
@@ -125,6 +125,11 @@ module Drive
 
         public carregarConteudoVazio(): void
         {
+            if (this.arrArq != null)
+            {
+                this.arrArq.forEach((arq) => { arq.dispose() });
+            }
+
             this.arrArq = null;
 
             this.atualizarConteudo();

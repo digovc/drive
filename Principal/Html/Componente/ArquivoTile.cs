@@ -119,7 +119,7 @@ namespace Drive.Html.Componente
         {
             base.setCss(css);
 
-            this.addCss(css.setBoxShadow(0, 1, 5, 0));
+            this.addCss(css.setBoxShadow(0, 1, 5, 0, "#9e9e9e"));
             this.addCss(css.setCursor("pointer"));
             this.addCss(css.setDisplay("none"));
             this.addCss(css.setHeight(50));
