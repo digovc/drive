@@ -89,9 +89,19 @@ module Drive
             PagPrincipalDrive.i.carregarConteudo(arrArq);
         }
 
-        private carregarConteudoVazio(): void
+        private carregarConteudoVazio(objInterlocutor: Interlocutor): void
         {
-            PagPrincipalDrive.i.carregarConteudoVazio();
+            if (objInterlocutor == null)
+            {
+                return;
+            }
+
+            if (objInterlocutor.objData == null)
+            {
+                return;
+            }
+
+            PagPrincipalDrive.i.carregarConteudoVazio(objInterlocutor.objData.toString());
         }
 
         protected getIntPorta(): number
@@ -125,7 +135,7 @@ module Drive
                     return true;
 
                 case SrvWsDrive.STR_METODO_PASTA_CONTEUDO_VAZIO:
-                    this.carregarConteudoVazio();
+                    this.carregarConteudoVazio(objInterlocutor);
                     return true;
             }
 

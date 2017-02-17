@@ -111,7 +111,7 @@ module Drive
 
         private abrirConteudo(): void
         {
-            SrvWsDrive.i.abrirConteudo(this.arq);
+            PagPrincipalDrive.i.abrirConteudo(this.arq);
         }
 
         private abrirDetalhe(): void

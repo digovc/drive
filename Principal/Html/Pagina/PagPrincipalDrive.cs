@@ -64,6 +64,22 @@ namespace Drive.Html.Pagina
             }
         }
 
+        private BarraEndereco _divBarraEndereco;
+
+        private BarraEndereco divBarraEndereco
+        {
+            get
+            {
+                if (_divBarraEndereco != null)
+                {
+                    return _divBarraEndereco;
+                }
+
+                _divBarraEndereco = new BarraEndereco();
+
+                return _divBarraEndereco;
+            }
+        }
         #endregion Atributos
 
         #region Construtores
@@ -114,6 +130,7 @@ namespace Drive.Html.Pagina
             this.divActionBarDrive.setPai(this);
             this.divMenuDrive.setPai(this);
 
+            this.divBarraEndereco.setPai(this);
             this.divArquivoViewer.setPai(this);
         }
 

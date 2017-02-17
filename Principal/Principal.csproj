@@ -50,6 +50,8 @@
     <Compile Include="Html\Componente\ActionBarDrive.cs" />
     <Compile Include="Html\Componente\ArquivoTile.cs" />
     <Compile Include="Html\Componente\ArquivoViewer.cs" />
+    <Compile Include="Html\Componente\BarraEndereco.cs" />
+    <Compile Include="Html\Componente\BarraEnderecoItem.cs" />
     <Compile Include="Html\Componente\MenuDrive.cs" />
     <Compile Include="Html\Pagina\PagPrincipalDrive.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -130,6 +130,12 @@ module Drive
             this.atualizarConteudo();
         }
 
+        public limparConteudo(): void
+        {
+            this.arrArq == null;
+            this.divConteudo.strConteudo = null;
+        }
+
         // #endregion Métodos
 
         // #region Eventos

@@ -70,11 +70,12 @@ namespace Drive.Server.WebSocket
 
         private void abrirConteudo(Interlocutor objInterlocutor)
         {
-            string dir = string.Empty;
+            ArquivoDominio arq = null;
+            string dir = null;
 
             if (objInterlocutor.objData != null)
             {
-                var arq = objInterlocutor.getObjJson<ArquivoDominio>();
+                arq = objInterlocutor.getObjJson<ArquivoDominio>();
 
                 if (arq == null)
                 {
@@ -99,7 +100,7 @@ namespace Drive.Server.WebSocket
 
             if (lstArq.Count < 1)
             {
-                this.enviar(new Interlocutor(STR_METODO_PASTA_CONTEUDO_VAZIO));
+                this.enviar(new Interlocutor(STR_METODO_PASTA_CONTEUDO_VAZIO, arq?.dir));
                 return;
             }
 

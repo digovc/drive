@@ -1,10 +1,12 @@
 ﻿/// <reference path="../../../Web.TypeScript/html/pagina/PagMobile.ts"/>
+/// <reference path="../../../Web.TypeScript/Utils.ts"/>
 
 module Drive
 {
     // #region Importações
 
     import PagMobile = Web.PagMobile;
+    import Utils = Web.Utils;
 
     // #endregion Importações
 
@@ -34,6 +36,7 @@ module Drive
 
         private _divActionBarDrive: ActionBarDrive;
         private _divArquivoViewer: ArquivoViewer;
+        private _divBarraEndereco: BarraEndereco;
         private _divMenuDrive: MenuDrive;
 
         public get divActionBarDrive(): ActionBarDrive
@@ -60,6 +63,18 @@ module Drive
             return this._divArquivoViewer;
         }
 
+        private get divBarraEndereco(): BarraEndereco
+        {
+            if (this._divBarraEndereco != null)
+            {
+                return this._divBarraEndereco;
+            }
+
+            this._divBarraEndereco = new BarraEndereco();
+
+            return this._divBarraEndereco;
+        }
+
         private get divMenuDrive(): MenuDrive
         {
             if (this._divMenuDrive != null)
@@ -79,14 +94,52 @@ module Drive
 
         // #region Métodos
 
-        public carregarConteudo(arrArq: Array<ArquivoDominio>): void
+        public abrirConteudo(arq: ArquivoDominio): void
         {
-            this.divArquivoViewer.carregarConteudo(arrArq);
+            this.divArquivoViewer.limparConteudo();
+
+            SrvWsDrive.i.abrirConteudo(arq);
         }
 
-        public carregarConteudoVazio(): void
+        public carregarConteudo(arrArq: Array<ArquivoDominio>): void
+        {
+            if (arrArq == null)
+            {
+                this.carregarConteudoVazio("/");
+                return;
+            }
+
+            this.divArquivoViewer.carregarConteudo(arrArq);
+
+            this.carregarConteudoDivBarraEndereco(arrArq);
+        }
+
+        private carregarConteudoDivBarraEndereco(arrArq: Array<ArquivoDominio>): void
+        {
+            if (arrArq.length < 1)
+            {
+                return;
+            }
+
+            if (Utils.getBooStrVazia(arrArq[0].dir))
+            {
+                return;
+            }
+
+            var dirTemp = arrArq[0].dir.substring(0, arrArq[0].dir.lastIndexOf("/"));
+
+            if (Utils.getBooStrVazia(dirTemp))
+            {
+                return;
+            }
+
+            this.divBarraEndereco.carregarDiretorio(dirTemp);
+        }
+
+        public carregarConteudoVazio(dir: string): void
         {
             this.divArquivoViewer.carregarConteudoVazio();
+            this.divBarraEndereco.carregarDiretorio(dir);
         }
 
         protected inicializar(): void
@@ -95,6 +148,7 @@ module Drive
 
             this.divActionBarDrive.iniciar();
             this.divArquivoViewer.iniciar();
+            this.divBarraEndereco.iniciar();
             this.divMenuDrive.iniciar();
         }
 

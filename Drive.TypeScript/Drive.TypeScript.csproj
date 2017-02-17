@@ -37,6 +37,8 @@
     <TypeScriptCompile Include="html\componente\ActionBarDrive.ts" />
     <TypeScriptCompile Include="html\componente\ArquivoTile.ts" />
     <TypeScriptCompile Include="html\componente\ArquivoViewer.ts" />
+    <TypeScriptCompile Include="html\componente\BarraEndereco.ts" />
+    <TypeScriptCompile Include="html\componente\BarraEnderecoItem.ts" />
     <TypeScriptCompile Include="html\componente\MenuDrive.ts" />
     <TypeScriptCompile Include="html\pagina\PagPrincipalDrive.ts" />
     <TypeScriptCompile Include="server\websocket\SrvWsDrive.ts" />

@@ -4,7 +4,7 @@ using NetZ.Web.Server.Arquivo.Css;
 
 namespace Drive.Html.Componente
 {
-    internal class ArquivoViewer : ComponenteHtml
+    internal class BarraEndereco : ComponenteHtml
     {
         #region Constantes
 
@@ -13,7 +13,7 @@ namespace Drive.Html.Componente
         #region Atributos
 
         private Div _divConteudo;
-        private Div _divVazio;
+        private Div _divHome;
 
         private Div divConteudo
         {
@@ -30,18 +30,18 @@ namespace Drive.Html.Componente
             }
         }
 
-        private Div divVazio
+        private Div divHome
         {
             get
             {
-                if (_divVazio != null)
+                if (_divHome != null)
                 {
-                    return _divVazio;
+                    return _divHome;
                 }
 
-                _divVazio = new Div();
+                _divHome = new Div();
 
-                return _divVazio;
+                return _divHome;
             }
         }
 
@@ -57,7 +57,7 @@ namespace Drive.Html.Componente
         {
             base.addLayoutFixo(tagJs);
 
-            tagJs.addLayoutFixo(typeof(ArquivoTile));
+            tagJs.addLayoutFixo(typeof(BarraEnderecoItem));
         }
 
         protected override bool getBooJs()
@@ -71,32 +71,32 @@ namespace Drive.Html.Componente
 
             this.strId = this.GetType().Name;
 
-            this.divVazio.strConteudo = "Nada por aqui Jhoe.";
+            this.divHome.strConteudo = "Home";
         }
 
         protected override void montarLayout()
         {
             base.montarLayout();
 
-            this.divVazio.setPai(this);
             this.divConteudo.setPai(this);
+
+            this.divHome.setPai(this.divConteudo);
+
+            new LimiteFloat().setPai(this);
         }
 
         protected override void setCss(CssArquivo css)
         {
             base.setCss(css);
 
-            this.addCss(css.setPaddingTop(10));
+            this.addCss(css.setBackgroundColor("#607D8B"));
+            this.addCss(css.setColor("white"));
+            this.addCss(css.setMarginTop(50));
 
-            this.divVazio.addCss(css.setBackgroundImage("http://s11.postimg.org/j43gatslb/ghost.png"));
-            this.divVazio.addCss(css.setBackgroundPosition("center 0px"));
-            this.divVazio.addCss(css.setBackgroundRepeat("no-repeat"));
-            this.divVazio.addCss(css.setBackgroundSize("100px"));
-            this.divVazio.addCss(css.setDisplay("none"));
-            this.divVazio.addCss(css.setHeight(200));
-            this.divVazio.addCss(css.setLineHeight(250));
-            this.divVazio.addCss(css.setMarginTop(100));
-            this.divVazio.addCss(css.setTextAlign("center"));
+            this.divHome.addCss(css.setBorderRight(1, "solid", "#4a545a"));
+            this.divHome.addCss(css.setCursor("pointer"));
+            this.divHome.addCss(css.setFloat("left"));
+            this.divHome.addCss(css.setPadding(10));
         }
 
         protected override void setStrId(string strId)
@@ -104,7 +104,8 @@ namespace Drive.Html.Componente
             base.setStrId(strId);
 
             this.divConteudo.strId = (strId + "_divConteudo");
-            this.divVazio.strId = (strId + "_divVazio");
+
+            this.divHome.strId = (strId + "_divHome");
         }
 
         #endregion Métodos
