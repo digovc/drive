@@ -94,15 +94,11 @@ namespace Drive.Html.Componente
         {
             base.inicializar();
 
-            this.divDttAlteracao.strConteudo = "_dtt_alteracao_conteudo";
-            this.divDttAlteracao.strId = "_dtt_alteracao_id";
-
-            this.divIcone.strId = "_icone_id";
-
-            this.divTitulo.strConteudo = "_arquivo_titulo";
-            this.divTitulo.strId = "_titulo_id";
-
             this.strId = "_tile_id";
+
+            this.divDttAlteracao.strId = "_dtt_alteracao_id";
+            this.divIcone.strId = "_icone_id";
+            this.divTitulo.strId = "_titulo_id";
         }
 
         protected override void montarLayout()

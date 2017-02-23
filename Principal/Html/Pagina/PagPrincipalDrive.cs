@@ -1,5 +1,6 @@
 ﻿using Drive.DataBase.Dominio;
 using Drive.Html.Componente;
+using Drive.Html.Componente.Transferencia;
 using Drive.Server.WebSocket;
 using NetZ.Web.DataBase.Dominio;
 using NetZ.Web.Html;
@@ -17,7 +18,9 @@ namespace Drive.Html.Pagina
 
         private ActionBarDrive _divActionBarDrive;
         private ArquivoViewer _divArquivoViewer;
+        private BarraEndereco _divBarraEndereco;
         private MenuDrive _divMenuDrive;
+        private TransferenciaViewer _divTransferenciaViewer;
 
         private ActionBarDrive divActionBarDrive
         {
@@ -49,6 +52,21 @@ namespace Drive.Html.Pagina
             }
         }
 
+        private BarraEndereco divBarraEndereco
+        {
+            get
+            {
+                if (_divBarraEndereco != null)
+                {
+                    return _divBarraEndereco;
+                }
+
+                _divBarraEndereco = new BarraEndereco();
+
+                return _divBarraEndereco;
+            }
+        }
+
         private MenuDrive divMenuDrive
         {
             get
@@ -64,22 +82,21 @@ namespace Drive.Html.Pagina
             }
         }
 
-        private BarraEndereco _divBarraEndereco;
-
-        private BarraEndereco divBarraEndereco
+        private TransferenciaViewer divTransferenciaViewer
         {
             get
             {
-                if (_divBarraEndereco != null)
+                if (_divTransferenciaViewer != null)
                 {
-                    return _divBarraEndereco;
+                    return _divTransferenciaViewer;
                 }
 
-                _divBarraEndereco = new BarraEndereco();
+                _divTransferenciaViewer = new TransferenciaViewer();
 
-                return _divBarraEndereco;
+                return _divTransferenciaViewer;
             }
         }
+
         #endregion Atributos
 
         #region Construtores
@@ -132,6 +149,7 @@ namespace Drive.Html.Pagina
 
             this.divBarraEndereco.setPai(this);
             this.divArquivoViewer.setPai(this);
+            this.divTransferenciaViewer.setPai(this);
         }
 
         #endregion Métodos

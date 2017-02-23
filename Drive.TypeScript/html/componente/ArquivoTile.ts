@@ -123,12 +123,12 @@ module Drive
         {
             super.inicializar();
 
-            this.inicializarDivIcone();
+            this.inicializarArq();
 
             this.mostrar();
         }
 
-        private inicializarDivIcone(): void
+        private inicializarArq(): void
         {
             if (this.arq == null)
             {
@@ -139,6 +139,9 @@ module Drive
             {
                 this.divIcone.jq.css("background-image", "url(https://cdn2.iconfinder.com/data/icons/metro-uinvert-dock/128/Folder_-_Google_Docs.png)");
             }
+
+            this.divDttAlteracao.strConteudo = Utils.getStrDttAmigavel(this.arq.dttAlteracao);
+            this.divTitulo.strConteudo = this.arq.strNome;
         }
 
         protected montarLayoutFixo(strLayoutFixo: string): string
@@ -152,12 +155,8 @@ module Drive
 
             strLayoutFixo = strLayoutFixo.replace("_tile_id", this.strId);
 
-            strLayoutFixo = strLayoutFixo.replace("_dtt_alteracao_conteudo", Utils.getStrDttAmigavel(this.arq.dttAlteracao));
             strLayoutFixo = strLayoutFixo.replace("_dtt_alteracao_id", this.divDttAlteracao.strId);
-
             strLayoutFixo = strLayoutFixo.replace("_icone_id", this.divIcone.strId);
-
-            strLayoutFixo = strLayoutFixo.replace("_arquivo_titulo", this.arq.strNome);
             strLayoutFixo = strLayoutFixo.replace("_titulo_id", this.divTitulo.strId);
 
             return strLayoutFixo;

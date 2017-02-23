@@ -2,9 +2,9 @@
 using NetZ.Web.Html.Componente;
 using NetZ.Web.Server.Arquivo.Css;
 
-namespace Drive.Html.Componente.Detalhe
+namespace Drive.Html.Componente.Transferencia
 {
-    internal class ArqDetalheMenuItem : ComponenteHtml
+    internal class TransferenciaItem : ComponenteHtml
     {
         #region Constantes
 
@@ -13,8 +13,8 @@ namespace Drive.Html.Componente.Detalhe
         #region Atributos
 
         private Div _divImagem;
+        private Div _divProgresso;
         private Div _divTitulo;
-        private string _srcImagem;
 
         private Div divImagem
         {
@@ -28,6 +28,21 @@ namespace Drive.Html.Componente.Detalhe
                 _divImagem = new Div();
 
                 return _divImagem;
+            }
+        }
+
+        private Div divProgresso
+        {
+            get
+            {
+                if (_divProgresso != null)
+                {
+                    return _divProgresso;
+                }
+
+                _divProgresso = new Div();
+
+                return _divProgresso;
             }
         }
 
@@ -46,51 +61,42 @@ namespace Drive.Html.Componente.Detalhe
             }
         }
 
-        private string srcImagem
-        {
-            get
-            {
-                return _srcImagem;
-            }
-
-            set
-            {
-                _srcImagem = value;
-            }
-        }
-
         #endregion Atributos
 
         #region Construtores
 
-        internal ArqDetalheMenuItem(string srcImagem)
-        {
-            this.srcImagem = srcImagem;
-        }
-
         #endregion Construtores
 
         #region Métodos
-        protected override bool getBooJs()
+
+        protected override void inicializar()
         {
-            return true;
+            base.inicializar();
+
+            this.strId = "_transferencia_item_id";
+
+            this.divImagem.strId = "_imagem_id";
+            this.divProgresso.strId = "_progresso_id";
+            this.divTitulo.strId = "_titulo_id";
         }
+
         protected override void montarLayout()
         {
             base.montarLayout();
 
             this.divImagem.setPai(this);
             this.divTitulo.setPai(this);
+            this.divProgresso.setPai(this);
         }
 
         protected override void setCss(CssArquivo css)
         {
             base.setCss(css);
 
-            this.addCss(css.setBorderBottom(1, "solid", "rgb(210,210,210)"));
-            this.addCss(css.setHeight(50));
+            this.addCss(css.setHeight(53));
+            this.addCss(css.setPosition("relative"));
 
-            this.divImagem.addCss(css.setBackgroundImage(this.srcImagem));
+            this.divImagem.addCss(css.setBackgroundImage("http://megaicons.net/static/img/icons_sizes/8/178/256/very-basic-file-icon.png"));
             this.divImagem.addCss(css.setBackgroundPosition("center"));
             this.divImagem.addCss(css.setBackgroundRepeat("no-repeat"));
             this.divImagem.addCss(css.setBackgroundSize(35, 35));
@@ -98,14 +104,12 @@ namespace Drive.Html.Componente.Detalhe
             this.divImagem.addCss(css.setHeight(100, "%"));
             this.divImagem.addCss(css.setWidth(50));
 
+            this.divProgresso.addCss(css.setBackgroundColor("#2196F3"));
+            this.divProgresso.addCss(css.setHeight(3));
+            this.divProgresso.addCss(css.setPosition("absolute"));
+            this.divProgresso.addCss(css.setWidth(0, "%"));
+
             this.divTitulo.addCss(css.setLineHeight(50));
-        }
-
-        protected override void setStrTitle(string strTitle)
-        {
-            base.setStrTitle(strTitle);
-
-            this.divTitulo.strConteudo = strTitle;
         }
 
         #endregion Métodos

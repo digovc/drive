@@ -186,10 +186,9 @@ namespace Drive.Html.Componente.Detalhe
             this.divConteudo.addCss(css.setLeft(0));
             this.divConteudo.addCss(css.setPosition("absolute"));
             this.divConteudo.addCss(css.setRight(0));
-            this.divConteudo.addCss(css.setMinHeight(70, "%"));
 
             this.divImagem.addCss(css.setBackgroundColor("#4CAF50"));
-            this.divImagem.addCss(css.setHeight(150));
+            this.divImagem.addCss(css.setHeight(175));
 
             this.divMenu.addCss(css.setBoxShadow(0, 0, 5, 0, "grey"));
             this.divMenu.addCss(css.setMargin(15));
@@ -206,6 +205,9 @@ namespace Drive.Html.Componente.Detalhe
         {
             base.setStrId(strId);
 
+            this.divMenuApagar.strId = (strId + "_divMenuApagar");
+            this.divMenuBaixar.strId = (strId + "_divMenuBaixar");
+            this.divMenuLink.strId = (strId + "_divMenuLink");
             this.divTitulo.strId = (strId + "_divTitulo");
         }
 

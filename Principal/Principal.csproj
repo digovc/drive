@@ -56,6 +56,8 @@
     <Compile Include="Html\Componente\Detalhe\ArquivoDetalheBase.cs" />
     <Compile Include="Html\Componente\Detalhe\ArqDetalheGeral.cs" />
     <Compile Include="Html\Componente\MenuDrive.cs" />
+    <Compile Include="Html\Componente\Transferencia\TransferenciaItem.cs" />
+    <Compile Include="Html\Componente\Transferencia\TransferenciaViewer.cs" />
     <Compile Include="Html\Pagina\PagPrincipalDrive.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Server\SrvHttpDrive.cs" />
