@@ -40,7 +40,7 @@
     <TypeScriptCompile Include="html\componente\BarraEndereco.ts" />
     <TypeScriptCompile Include="html\componente\BarraEnderecoItem.ts" />
     <TypeScriptCompile Include="html\componente\detalhe\ArquivoDetalheBase.ts" />
-    <TypeScriptCompile Include="html\componente\detalhe\ArquivoGeral.ts" />
+    <TypeScriptCompile Include="html\componente\detalhe\ArqDetalheGeral.ts" />
     <TypeScriptCompile Include="html\componente\MenuDrive.ts" />
     <TypeScriptCompile Include="html\pagina\PagPrincipalDrive.ts" />
     <TypeScriptCompile Include="server\websocket\SrvWsDrive.ts" />

@@ -6,7 +6,7 @@
     // #region Enumerados
     // #endregion Enumerados
 
-    export class ArquivoGeral extends ArquivoDetalheBase
+    export class ArqDetalheGeral extends ArquivoDetalheBase
     {
         // #region Constantes
         // #endregion Constantes

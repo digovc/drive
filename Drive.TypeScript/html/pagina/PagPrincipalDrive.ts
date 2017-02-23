@@ -112,7 +112,7 @@ module Drive
             switch (arq.intTipo)
             {
                 default:
-                    this.abrirDetalhe2(new ArquivoGeral(arq));
+                    this.abrirDetalhe2(new ArqDetalheGeral(arq));
                     return;
             }
         }

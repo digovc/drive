@@ -58,7 +58,7 @@ namespace Drive.Html.Componente
         {
             base.addLayoutFixo(tagJs);
 
-            tagJs.addLayoutFixo(typeof(ArquivoGeral));
+            tagJs.addLayoutFixo(typeof(ArqDetalheGeral));
             tagJs.addLayoutFixo(typeof(ArquivoTile));
         }
 
@@ -88,7 +88,7 @@ namespace Drive.Html.Componente
         {
             base.setCss(css);
 
-            this.addCss(css.setPaddingTop(10));
+            this.addCss(css.setPaddingTop(90));
 
             this.divVazio.addCss(css.setBackgroundImage("http://s11.postimg.org/j43gatslb/ghost.png"));
             this.divVazio.addCss(css.setBackgroundPosition("center 0px"));

@@ -2,7 +2,7 @@
 
 namespace Drive.Html.Componente.Detalhe
 {
-    internal class ArquivoGeral : ArquivoDetalheBase
+    internal class ArqDetalheGeral : ArquivoDetalheBase
     {
         #region Constantes
 
@@ -22,7 +22,7 @@ namespace Drive.Html.Componente.Detalhe
         {
             base.addJsDebug(lstJsDebug);
 
-            lstJsDebug.Add(new JavaScriptTag(typeof(ArquivoGeral), 201));
+            lstJsDebug.Add(new JavaScriptTag(typeof(ArqDetalheGeral), 201));
         }
 
         #endregion Métodos

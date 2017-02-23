@@ -52,8 +52,9 @@
     <Compile Include="Html\Componente\ArquivoViewer.cs" />
     <Compile Include="Html\Componente\BarraEndereco.cs" />
     <Compile Include="Html\Componente\BarraEnderecoItem.cs" />
+    <Compile Include="Html\Componente\Detalhe\ArqDetalheMenuItem.cs" />
     <Compile Include="Html\Componente\Detalhe\ArquivoDetalheBase.cs" />
-    <Compile Include="Html\Componente\Detalhe\ArquivoGeral.cs" />
+    <Compile Include="Html\Componente\Detalhe\ArqDetalheGeral.cs" />
     <Compile Include="Html\Componente\MenuDrive.cs" />
     <Compile Include="Html\Pagina\PagPrincipalDrive.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

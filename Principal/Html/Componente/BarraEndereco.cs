@@ -90,8 +90,11 @@ namespace Drive.Html.Componente
             this.addCss(css.setBackgroundColor("#607D8B"));
             this.addCss(css.setColor("white"));
             this.addCss(css.setHeight(40));
+            this.addCss(css.setLeft(0));
             this.addCss(css.setMarginTop(50));
             this.addCss(css.setOverflowY("auto"));
+            this.addCss(css.setPosition("fixed"));
+            this.addCss(css.setRight(0));
 
             css.addCssPuro("#_id::-webkit-scrollbar{height:0px;width:0px}".Replace("_id", this.strId));
 
