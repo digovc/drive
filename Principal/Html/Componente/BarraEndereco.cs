@@ -81,8 +81,6 @@ namespace Drive.Html.Componente
             this.divConteudo.setPai(this);
 
             this.divHome.setPai(this.divConteudo);
-
-            new LimiteFloat().setPai(this);
         }
 
         protected override void setCss(CssArquivo css)
@@ -91,7 +89,11 @@ namespace Drive.Html.Componente
 
             this.addCss(css.setBackgroundColor("#607D8B"));
             this.addCss(css.setColor("white"));
+            this.addCss(css.setHeight(40));
             this.addCss(css.setMarginTop(50));
+            this.addCss(css.setOverflowY("auto"));
+
+            css.addCssPuro("#_id::-webkit-scrollbar{height:0px;width:0px}".Replace("_id", this.strId));
 
             this.divHome.addCss(css.setBorderRight(1, "solid", "#4a545a"));
             this.divHome.addCss(css.setCursor("pointer"));

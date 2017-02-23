@@ -26,13 +26,12 @@ module Drive
 
         // #region Atributos
 
+        private _arqHome: ArquivoDominio;
         private _arrDivBarraEnderecoItem: Array<BarraEnderecoItem>;
         private _dir: string;
         private _dirTemp: string;
         private _divConteudo: Div;
         private _divHome: Div;
-
-        private _arqHome: ArquivoDominio;
 
         private get arqHome(): ArquivoDominio
         {
@@ -118,34 +117,64 @@ module Drive
             PagPrincipalDrive.i.abrirConteudo(this.arqHome);
         }
 
+        private atualizarWidth(): void
+        {
+            this.divConteudo.jq.css("width", Utils.STR_VAZIA);
+
+            if (this.arrDivBarraEnderecoItem == null)
+            {
+                return;
+            }
+
+            if (this.arrDivBarraEnderecoItem.length < 1)
+            {
+                return;
+            }
+
+            var intWidth = (this.divHome.jq[0].clientWidth + 5);
+
+            this.arrDivBarraEnderecoItem.forEach((divBarraEnderecoItem) => { intWidth += divBarraEnderecoItem.jq[0].clientWidth; });
+
+            this.divConteudo.jq.css("width", (Math.round(intWidth).toString() + "px"));
+
+            this.jq.scrollLeft(intWidth);
+        }
+
         public carregarDiretorio(dir: string): void
         {
-            this.limparConteudo();
-
-            if (Utils.getBooStrVazia(dir))
+            try
             {
-                return;
+                this.limparConteudo();
+
+                if (Utils.getBooStrVazia(dir))
+                {
+                    return;
+                }
+
+                this.arrDivBarraEnderecoItem = new Array<BarraEnderecoItem>();
+                this.dir = dir;
+                this.dirTemp = Utils.STR_VAZIA;
+
+                var arrDir = dir.split("/");
+
+                if (arrDir == null)
+                {
+                    return;
+                }
+
+                if (arrDir.length < 2)
+                {
+                    return;
+                }
+
+                for (var i = 0; i < arrDir.length; i++)
+                {
+                    this.carregarArquivoItem(arrDir[i]);
+                }
             }
-
-            this.arrDivBarraEnderecoItem = new Array<BarraEnderecoItem>();
-            this.dir = dir;
-            this.dirTemp = Utils.STR_VAZIA;
-
-            var arrDir = dir.split("/");
-
-            if (arrDir == null)
+            finally
             {
-                return;
-            }
-
-            if (arrDir.length < 2)
-            {
-                return;
-            }
-
-            for (var i = 0; i < arrDir.length; i++)
-            {
-                this.carregarArquivoItem(arrDir[i]);
+                this.atualizarWidth();
             }
         }
 

@@ -116,7 +116,7 @@ module Drive
 
         private abrirDetalhe(): void
         {
-
+            PagPrincipalDrive.i.abrirDetalhe(this.arq);
         }
 
         protected inicializar(): void

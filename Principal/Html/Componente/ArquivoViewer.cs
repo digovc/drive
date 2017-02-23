@@ -1,4 +1,5 @@
-﻿using NetZ.Web.Html;
+﻿using Drive.Html.Componente.Detalhe;
+using NetZ.Web.Html;
 using NetZ.Web.Html.Componente;
 using NetZ.Web.Server.Arquivo.Css;
 
@@ -57,6 +58,7 @@ namespace Drive.Html.Componente
         {
             base.addLayoutFixo(tagJs);
 
+            tagJs.addLayoutFixo(typeof(ArquivoGeral));
             tagJs.addLayoutFixo(typeof(ArquivoTile));
         }
 

@@ -102,6 +102,28 @@ module Drive
             SrvWsDrive.i.abrirConteudo(arq);
         }
 
+        public abrirDetalhe(arq: ArquivoDominio): void
+        {
+            if (arq == null)
+            {
+                return;
+            }
+
+            switch (arq.intTipo)
+            {
+                default:
+                    this.abrirDetalhe2(new ArquivoGeral(arq));
+                    return;
+            }
+        }
+
+        private abrirDetalhe2(divDetalhe: ArquivoDetalheBase): void
+        {
+            this.tagBody.jq.append(divDetalhe.strLayoutFixo);
+
+            divDetalhe.iniciar();
+        }
+
         public carregarConteudo(arrArq: Array<ArquivoDominio>): void
         {
             if (arrArq == null)

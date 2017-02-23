@@ -4,11 +4,17 @@
     {
         #region Constantes
 
+        public const int INT_TIPO_GERAL = 0;
+        public const int INT_TIPO_IMAGEM_JPG = 3;
+        public const int INT_TIPO_IMAGEM_PNG = 2;
+        public const int INT_TIPO_TXT = 1;
+
         #endregion Constantes
 
         #region Atributos
 
         private bool _booPasta;
+        private int _intTipo = INT_TIPO_GERAL;
         private string _dir;
 
         public bool booPasta
@@ -34,6 +40,19 @@
             set
             {
                 _dir = value;
+            }
+        }
+
+        public int intTipo
+        {
+            get
+            {
+                return _intTipo;
+            }
+
+            set
+            {
+                _intTipo = value;
             }
         }
 

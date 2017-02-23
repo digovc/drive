@@ -39,7 +39,9 @@ namespace Drive.Html.Componente
             this.addCss(css.setCursor("pointer"));
             this.addCss(css.setDisplay("none"));
             this.addCss(css.setFloat("left"));
-            this.addCss(css.setPadding(10));
+            this.addCss(css.setLineHeight(40));
+            this.addCss(css.setPaddingLeft(10));
+            this.addCss(css.setPaddingRight(10));
         }
 
         #endregion Métodos
