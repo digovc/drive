@@ -1,6 +1,8 @@
 ﻿using Drive.DataBase.Dominio;
+using Drive.Server.WebSocket.Cache;
 using NetZ.Web.Server;
 using NetZ.Web.Server.WebSocket;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Sockets;
@@ -11,6 +13,8 @@ namespace Drive.Server.WebSocket
     {
         #region Constantes
 
+        private const string STR_METODO_ARQUIVO_DOWNLOAD = "STR_METODO_ARQUIVO_DOWNLOAD";
+        private const string STR_METODO_ARQUIVO_DOWNLOAD_PARTE = "STR_METODO_ARQUIVO_DOWNLOAD_PARTE";
         private const string STR_METODO_PASTA_CONTEUDO = "STR_METODO_PASTA_CONTEUDO";
         private const string STR_METODO_PASTA_CONTEUDO_VAZIO = "STR_METODO_PASTA_CONTEUDO_VAZIO";
 
@@ -60,6 +64,10 @@ namespace Drive.Server.WebSocket
 
             switch (objInterlocutor.strMetodo)
             {
+                case STR_METODO_ARQUIVO_DOWNLOAD:
+                    this.download(objInterlocutor);
+                    return true;
+
                 case STR_METODO_PASTA_CONTEUDO:
                     this.abrirConteudo(objInterlocutor);
                     return true;
@@ -107,6 +115,46 @@ namespace Drive.Server.WebSocket
             this.enviar(new Interlocutor(STR_METODO_PASTA_CONTEUDO, lstArq));
         }
 
+        private void download(Interlocutor objInterlocutor)
+        {
+            try
+            {
+                this.bloquearThread();
+
+                var objTransferencia = objInterlocutor.getObjJson<TransferenciaDominio>();
+
+                if (objTransferencia == null)
+                {
+                    return;
+                }
+
+                if (string.IsNullOrEmpty(objTransferencia.dirArquivo))
+                {
+                    return;
+                }
+
+                if (!File.Exists(ConfigDrive.i.dirRepositorio + objTransferencia.dirArquivo))
+                {
+                    return;
+                }
+
+                var arrBte = RepositorioCache.i.getArrByte(objTransferencia.dirArquivo, objTransferencia.intParte);
+
+                if (arrBte == null)
+                {
+                    return;
+                }
+
+                objTransferencia.strData = Convert.ToBase64String(arrBte);
+
+                this.enviar(STR_METODO_ARQUIVO_DOWNLOAD_PARTE, objTransferencia);
+            }
+            finally
+            {
+                this.liberarThread();
+            }
+        }
+
         private void listarPasta(List<ArquivoDominio> lstArq, string dir)
         {
             foreach (string dirPasta in Directory.GetDirectories(dir))
@@ -128,6 +176,7 @@ namespace Drive.Server.WebSocket
             arqPasta.dir = dirPasta.Replace(ConfigDrive.i.dirRepositorio, null).Replace("\\", "/");
             arqPasta.dttAlteracao = Directory.GetLastWriteTime(dirPasta);
             arqPasta.dttCadastro = Directory.GetCreationTime(dirPasta);
+            arqPasta.intTamanho = (!booPasta ? (new FileInfo(dirPasta).Length) : 0);
             arqPasta.strNome = Path.GetFileName(dirPasta);
 
             lstArq.Add(arqPasta);

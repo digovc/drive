@@ -12,6 +12,8 @@ namespace Drive
     {
         #region Constantes
 
+        public const long INT_TRANSFERENCIA_PARTE_TAMANHO = 1000000;
+
         #endregion Constantes
 
         #region Atributos
@@ -67,7 +69,6 @@ namespace Drive
             {
                 Directory.CreateDirectory(ConfigDrive.i.dirRepositorio);
             }
-
         }
 
         protected override void inicializarLstSrv(List<ServerBase> lstSrv)

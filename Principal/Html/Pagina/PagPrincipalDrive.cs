@@ -123,9 +123,9 @@ namespace Drive.Html.Pagina
             lstJsDebug.Add(new JavaScriptTag(typeof(AppDrive)));
             lstJsDebug.Add(new JavaScriptTag(typeof(ArquivoDominio), 202));
             lstJsDebug.Add(new JavaScriptTag(typeof(DominioDriveBase), 201));
-            lstJsDebug.Add(new JavaScriptTag(typeof(SrvWsDrive)));
-
             lstJsDebug.Add(new JavaScriptTag(typeof(DominioWebBase), 200));
+            lstJsDebug.Add(new JavaScriptTag(typeof(SrvWsDrive)));
+            lstJsDebug.Add(new JavaScriptTag(typeof(TransferenciaDominio), 202));
         }
 
         protected override void addLayoutFixo(JavaScriptTag tagJs)

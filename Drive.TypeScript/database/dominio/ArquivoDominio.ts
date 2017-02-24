@@ -21,6 +21,7 @@
 
         private _booPasta: boolean;
         private _dir: string;
+        private _intTamanho: number;
         private _intTipo: number = ArquivoDominio.INT_TIPO_GERAL;
 
         public get booPasta(): boolean
@@ -41,6 +42,16 @@
         public set dir(dir: string)
         {
             this._dir = dir;
+        }
+
+        public get intTamanho(): number
+        {
+            return this._intTamanho;
+        }
+
+        public set intTamanho(intTamanho: number)
+        {
+            this._intTamanho = intTamanho;
         }
 
         public get intTipo(): number

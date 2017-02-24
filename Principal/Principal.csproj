@@ -47,6 +47,7 @@
     <Compile Include="AppDrive.cs" />
     <Compile Include="DataBase\Dominio\ArquivoDominio.cs" />
     <Compile Include="DataBase\Dominio\DominioDriveBase.cs" />
+    <Compile Include="DataBase\Dominio\TransferenciaDominio.cs" />
     <Compile Include="Html\Componente\ActionBarDrive.cs" />
     <Compile Include="Html\Componente\ArquivoTile.cs" />
     <Compile Include="Html\Componente\ArquivoViewer.cs" />
@@ -61,7 +62,9 @@
     <Compile Include="Html\Pagina\PagPrincipalDrive.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Server\SrvHttpDrive.cs" />
+    <Compile Include="Server\WebSocket\Cache\ArquivoCache.cs" />
     <Compile Include="Server\WebSocket\ClienteWsDrive.cs" />
+    <Compile Include="Server\WebSocket\Cache\RepositorioCache.cs" />
     <Compile Include="Server\WebSocket\SrvWsDrive.cs" />
     <Compile Include="TemaDrive.cs" />
     <Compile Include="WinService.cs">

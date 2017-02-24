@@ -111,6 +111,12 @@ module Drive
 
         private baixarArquivo(): void
         {
+            if (this.arq == null)
+            {
+                return;
+            }
+
+            PagPrincipalDrive.i.baixarArquivo(this.arq);
         }
 
         private copiarLink(): void
@@ -144,6 +150,8 @@ module Drive
         {
             super.setEventos();
 
+            this.addEvtOnClickListener(this);
+
             this.divMenuApagar.addEvtOnClickListener(this);
             this.divMenuBaixar.addEvtOnClickListener(this);
             this.divMenuLink.addEvtOnClickListener(this);
@@ -159,16 +167,20 @@ module Drive
             {
                 switch (objSender)
                 {
+                    case this:
+                        this.esconder();
+                        return;
+
                     case this.divMenuApagar:
-                        this.apagarArquivo()
+                        this.apagarArquivo();
                         return;
 
                     case this.divMenuBaixar:
-                        this.baixarArquivo()
+                        this.baixarArquivo();
                         return;
 
                     case this.divMenuLink:
-                        this.copiarLink()
+                        this.copiarLink();
                         return;
                 }
             }

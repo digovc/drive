@@ -14,8 +14,9 @@
         #region Atributos
 
         private bool _booPasta;
-        private int _intTipo = INT_TIPO_GERAL;
         private string _dir;
+        private long _intTamanho;
+        private int _intTipo = INT_TIPO_GERAL;
 
         public bool booPasta
         {
@@ -40,6 +41,19 @@
             set
             {
                 _dir = value;
+            }
+        }
+
+        public long intTamanho
+        {
+            get
+            {
+                return _intTamanho;
+            }
+
+            set
+            {
+                _intTamanho = value;
             }
         }
 

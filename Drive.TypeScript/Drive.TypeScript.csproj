@@ -34,6 +34,7 @@
     <TypeScriptCompile Include="AppDrive.ts" />
     <TypeScriptCompile Include="database\dominio\ArquivoDominio.ts" />
     <TypeScriptCompile Include="database\dominio\DominioDriveBase.ts" />
+    <TypeScriptCompile Include="database\dominio\TransferenciaDominio.ts" />
     <TypeScriptCompile Include="html\componente\ActionBarDrive.ts" />
     <TypeScriptCompile Include="html\componente\ArquivoTile.ts" />
     <TypeScriptCompile Include="html\componente\ArquivoViewer.ts" />

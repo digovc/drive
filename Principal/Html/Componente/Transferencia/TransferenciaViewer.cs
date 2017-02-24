@@ -13,6 +13,8 @@ namespace Drive.Html.Componente.Transferencia
         #region Atributos
 
         private Div _divConteudo;
+        private Div _divFilaDownload;
+        private Div _divFilaUpload;
         private Div _divImagem;
         private Div _divProgresso;
 
@@ -28,6 +30,36 @@ namespace Drive.Html.Componente.Transferencia
                 _divConteudo = new Div();
 
                 return _divConteudo;
+            }
+        }
+
+        private Div divFilaDownload
+        {
+            get
+            {
+                if (_divFilaDownload != null)
+                {
+                    return _divFilaDownload;
+                }
+
+                _divFilaDownload = new Div();
+
+                return _divFilaDownload;
+            }
+        }
+
+        private Div divFilaUpload
+        {
+            get
+            {
+                if (_divFilaUpload != null)
+                {
+                    return _divFilaUpload;
+                }
+
+                _divFilaUpload = new Div();
+
+                return _divFilaUpload;
             }
         }
 
@@ -69,9 +101,16 @@ namespace Drive.Html.Componente.Transferencia
 
         #region Métodos
 
+        protected override void addLayoutFixo(JavaScriptTag tagJs)
+        {
+            base.addLayoutFixo(tagJs);
+
+            tagJs.addLayoutFixo(typeof(TransferenciaItem));
+        }
+
         protected override bool getBooJs()
         {
-            return base.getBooJs();
+            return true;
         }
 
         protected override void inicializar()
@@ -89,6 +128,9 @@ namespace Drive.Html.Componente.Transferencia
             this.divProgresso.setPai(this);
 
             this.divConteudo.setPai(this);
+
+            this.divFilaDownload.setPai(this.divConteudo);
+            this.divFilaUpload.setPai(this.divConteudo);
         }
 
         protected override void setCss(CssArquivo css)
@@ -123,6 +165,8 @@ namespace Drive.Html.Componente.Transferencia
             base.setStrId(strId);
 
             this.divConteudo.strId = (strId + "_divConteudo");
+            this.divFilaDownload.strId = (strId + "_divFilaDownload");
+            this.divFilaUpload.strId = (strId + "_divFilaUpload");
             this.divImagem.strId = (strId + "_divImagem");
             this.divProgresso.strId = (strId + "_divProgresso");
         }

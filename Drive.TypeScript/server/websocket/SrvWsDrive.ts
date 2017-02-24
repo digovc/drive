@@ -1,6 +1,7 @@
 ﻿/// <reference path="../../../Web.TypeScript/ConstanteManager.ts"/>
 /// <reference path="../../../Web.TypeScript/server/Interlocutor.ts"/>
 /// <reference path="../../../Web.TypeScript/server/websocket/SrvWsBase.ts"/>
+/// <reference path="../../../Web.TypeScript/Utils.ts"/>
 
 module Drive
 {
@@ -9,6 +10,7 @@ module Drive
     import ConstanteManager = Web.ConstanteManager;
     import Interlocutor = Web.Interlocutor;
     import SrvWsBase = Web.SrvWsBase;
+    import Utils = Web.Utils;
 
     // #endregion Importações
 
@@ -19,6 +21,8 @@ module Drive
     {
         // #region Constantes
 
+        private static get STR_METODO_ARQUIVO_DOWNLOAD(): string { return "STR_METODO_ARQUIVO_DOWNLOAD" };
+        private static get STR_METODO_ARQUIVO_DOWNLOAD_PARTE(): string { return "STR_METODO_ARQUIVO_DOWNLOAD_PARTE" };
         private static get STR_METODO_PASTA_CONTEUDO(): string { return "STR_METODO_PASTA_CONTEUDO" };
         private static get STR_METODO_PASTA_CONTEUDO_VAZIO(): string { return "STR_METODO_PASTA_CONTEUDO_VAZIO" };
 
@@ -104,6 +108,58 @@ module Drive
             PagPrincipalDrive.i.carregarConteudoVazio(objInterlocutor.objData.toString());
         }
 
+        public download(arq: ArquivoDominio): void
+        {
+            if (arq == null)
+            {
+                return;
+            }
+
+            if (Utils.getBooStrVazia(arq.dir))
+            {
+                return;
+            }
+
+            var objTransferencia = new TransferenciaDominio();
+
+            objTransferencia.dirArquivo = arq.dir;
+            objTransferencia.intParte = 0;
+
+            this.enviar(new Interlocutor(SrvWsDrive.STR_METODO_ARQUIVO_DOWNLOAD, objTransferencia));
+        }
+
+        public downloadParte(objInterlocutor: Interlocutor): void
+        {
+            var objTransferencia = new TransferenciaDominio();
+
+            objTransferencia.copiarDados(objInterlocutor.getObjJson<TransferenciaDominio>());
+
+            if (Utils.getBooStrVazia(objTransferencia.dirArquivo))
+            {
+                return;
+            }
+
+            PagPrincipalDrive.i.downloadParte(objTransferencia);
+        }
+
+        public downloadParteProxima(objTransferencia: TransferenciaDominio): void
+        {
+            if (objTransferencia == null)
+            {
+                return;
+            }
+
+            if (Utils.getBooStrVazia(objTransferencia.dirArquivo))
+            {
+                return;
+            }
+
+            objTransferencia.intParte++;
+            objTransferencia.strData = null;
+
+            this.enviar(new Interlocutor(SrvWsDrive.STR_METODO_ARQUIVO_DOWNLOAD, objTransferencia));
+        }
+
         protected getIntPorta(): number
         {
             return ConstanteManager.i.getIntConstante(SrvWsDrive.name + "_intPorta");
@@ -130,6 +186,10 @@ module Drive
 
             switch (objInterlocutor.strMetodo)
             {
+                case SrvWsDrive.STR_METODO_ARQUIVO_DOWNLOAD_PARTE:
+                    this.downloadParte(objInterlocutor);
+                    return true;
+
                 case SrvWsDrive.STR_METODO_PASTA_CONTEUDO:
                     this.carregarConteudo(objInterlocutor);
                     return true;

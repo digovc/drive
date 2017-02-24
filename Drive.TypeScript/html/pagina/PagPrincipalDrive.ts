@@ -38,6 +38,7 @@ module Drive
         private _divArquivoViewer: ArquivoViewer;
         private _divBarraEndereco: BarraEndereco;
         private _divMenuDrive: MenuDrive;
+        private _divTransferenciaViewer: TransferenciaViewer;
 
         public get divActionBarDrive(): ActionBarDrive
         {
@@ -87,6 +88,18 @@ module Drive
             return this._divMenuDrive;
         }
 
+        private get divTransferenciaViewer(): TransferenciaViewer
+        {
+            if (this._divTransferenciaViewer != null)
+            {
+                return this._divTransferenciaViewer;
+            }
+
+            this._divTransferenciaViewer = new TransferenciaViewer();
+
+            return this._divTransferenciaViewer;
+        }
+
         // #endregion Atributos
 
         // #region Construtores
@@ -122,6 +135,11 @@ module Drive
             this.tagBody.jq.append(divDetalhe.strLayoutFixo);
 
             divDetalhe.iniciar();
+        }
+
+        public baixarArquivo(arq: ArquivoDominio): void
+        {
+            this.divTransferenciaViewer.baixarArquivo(arq);
         }
 
         public carregarConteudo(arrArq: Array<ArquivoDominio>): void
@@ -165,6 +183,11 @@ module Drive
             this.divBarraEndereco.carregarDiretorio(dir);
         }
 
+        public downloadParte(objTransferencia: TransferenciaDominio): void
+        {
+            this.divTransferenciaViewer.downloadParte(objTransferencia);
+        }
+
         protected inicializar(): void
         {
             super.inicializar();
@@ -173,6 +196,7 @@ module Drive
             this.divArquivoViewer.iniciar();
             this.divBarraEndereco.iniciar();
             this.divMenuDrive.iniciar();
+            this.divTransferenciaViewer.iniciar();
         }
 
         // #endregion Métodos

@@ -69,6 +69,11 @@ namespace Drive.Html.Componente.Transferencia
 
         #region Métodos
 
+        protected override bool getBooJs()
+        {
+            return true;
+        }
+
         protected override void inicializar()
         {
             base.inicializar();
@@ -93,6 +98,7 @@ namespace Drive.Html.Componente.Transferencia
         {
             base.setCss(css);
 
+            this.addCss(css.setDisplay("none"));
             this.addCss(css.setHeight(53));
             this.addCss(css.setPosition("relative"));
 
