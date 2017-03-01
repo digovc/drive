@@ -28,6 +28,7 @@ module Drive
         private _divImagem: Div;
         private _divProgresso: Div;
         private _divTitulo: Div;
+        private _dttUltimoRecebimento: Date;
         private _intRecebido: number = 0;
 
         public get arq(): ArquivoDominio
@@ -96,6 +97,16 @@ module Drive
             return this._divTitulo;
         }
 
+        private get dttUltimoRecebimento(): Date
+        {
+            return this._dttUltimoRecebimento;
+        }
+
+        private set dttUltimoRecebimento(dttUltimoRecebimento: Date)
+        {
+            this._dttUltimoRecebimento = dttUltimoRecebimento;
+        }
+
         private get intRecebido(): number
         {
             return this._intRecebido;
@@ -123,6 +134,8 @@ module Drive
 
         private atualizarLayout(): void
         {
+            this.divProgresso.jq.stop();
+
             if (this.arq == null)
             {
                 return;
@@ -130,13 +143,20 @@ module Drive
 
             if (this.intRecebido == this.arq.intTamanho)
             {
-                this.divProgresso.jq.css("width", "100%");
+                this.divProgresso.jq.animate({ "width": "100%" }, 200);
                 return;
+            }
+
+            var intTempo = 500;
+
+            if (this.dttUltimoRecebimento != null)
+            {
+                intTempo = (Date.now() - this.dttUltimoRecebimento.getTime());
             }
 
             var i = Math.trunc(this.intRecebido / this.arq.intTamanho * 100);
 
-            this.divProgresso.jq.css("width", (i.toString() + "%"));
+            this.divProgresso.jq.animate({ "width": (i.toString() + "%") }, intTempo);
         }
 
         private download(): void
@@ -171,7 +191,7 @@ module Drive
                 return false;
             }
 
-            var arrBufferParte = this.base64ToArrayBuffer(objTransferencia.strData);
+            var arrBufferParte = Utils.base64ToArrayBuffer(objTransferencia.strData);
 
             if (arrBufferParte == null)
             {
@@ -185,13 +205,15 @@ module Drive
                 this.arrBufferData = new ArrayBuffer(0);
             }
 
-            this.arrBufferData = this.appendBuffer(this.arrBufferData, arrBufferParte);
+            this.arrBufferData = Utils.appendBuffer(this.arrBufferData, arrBufferParte);
 
             this.atualizarLayout();
 
             this.downloadParteProxima(objTransferencia);
 
             this.finalizarDownload();
+
+            this.dttUltimoRecebimento = new Date();
 
             return true;
         }
@@ -261,10 +283,20 @@ module Drive
 
         private salvarArquivo(): void
         {
+            if (this.arrBufferData == null)
+            {
+                return;
+            }
+
+            if (this.arrBufferData.byteLength != this.arq.intTamanho)
+            {
+                return;
+            }
+
             var tagA = <any>document.createElement("a");
 
-            var blob = new Blob([this.arrBufferData], { type: "octet/stream" })
-            var url = window.URL.createObjectURL(blob);
+            var objBlob = new Blob([this.arrBufferData], { type: "octet/stream" })
+            var url = window.URL.createObjectURL(objBlob);
 
             tagA.download = this.arq.strNome;
             tagA.href = url;
@@ -277,30 +309,6 @@ module Drive
             window.URL.revokeObjectURL(url);
 
             document.body.removeChild(tagA);
-        }
-
-        private base64ToArrayBuffer(base64: string): ArrayBuffer
-        {
-            var binary_string = window.atob(base64);
-            var len = binary_string.length;
-            var bytes = new Uint8Array(len);
-
-            for (var i = 0; i < len; i++)
-            {
-                bytes[i] = binary_string.charCodeAt(i);
-            }
-
-            return bytes.buffer;
-        }
-
-        private appendBuffer(buffer1: ArrayBuffer, buffer2: ArrayBuffer): ArrayBuffer
-        {
-            var tmp = new Uint8Array(buffer1.byteLength + buffer2.byteLength);
-
-            tmp.set(new Uint8Array(buffer1), 0);
-            tmp.set(new Uint8Array(buffer2), buffer1.byteLength);
-
-            return tmp.buffer;
         }
 
         // #endregion Métodos
