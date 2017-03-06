@@ -94,14 +94,6 @@
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
   <PropertyGroup>
-    <PostBuildEvent>if $(ConfigurationName) == Debug echo "Copiando os arquivos javascript para a pasta de debug."
-
-if $(ConfigurationName) == Debug xcopy "$(TargetDir)js\$(ProjectName)\*.*" "$(SolutionDir)principal\bin\$(ConfigurationName)\res\js\drive\" /y/d/s
-
-::::::::::::::::::::::::::::::::::::::::::::::::::
-
-if $(ConfigurationName) == Release echo "Copiando o arquivo javascript final para o release."
-
-if $(ConfigurationName) == Release xcopy "$(TargetDir)js\drive.js" "$(SolutionDir)principal\bin\$(ConfigurationName)\res\js\" /y/d/s</PostBuildEvent>
+    <PostBuildEvent>xcopy "$(TargetDir)js\$(ProjectName)\*.*" "$(SolutionDir)principal\bin\$(ConfigurationName)\res\js\drive\" /y/d/s</PostBuildEvent>
   </PropertyGroup>
 </Project>

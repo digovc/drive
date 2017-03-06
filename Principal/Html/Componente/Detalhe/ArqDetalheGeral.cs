@@ -18,11 +18,11 @@ namespace Drive.Html.Componente.Detalhe
 
         #region Métodos
 
-        protected override void addJsDebug(LstTag<JavaScriptTag> lstJsDebug)
+        protected override void addJs(LstTag<JavaScriptTag> lstJs)
         {
-            base.addJsDebug(lstJsDebug);
+            base.addJs(lstJs);
 
-            lstJsDebug.Add(new JavaScriptTag(typeof(ArqDetalheGeral), 201));
+            lstJs.Add(new JavaScriptTag(typeof(ArqDetalheGeral), 201));
         }
 
         #endregion Métodos

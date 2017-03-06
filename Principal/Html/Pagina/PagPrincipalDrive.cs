@@ -116,16 +116,16 @@ namespace Drive.Html.Pagina
             SrvWsDrive.i.addConstante(tagJs);
         }
 
-        protected override void addJsDebug(LstTag<JavaScriptTag> lstJsDebug)
+        protected override void addJs(LstTag<JavaScriptTag> lstJs)
         {
-            base.addJsDebug(lstJsDebug);
+            base.addJs(lstJs);
 
-            lstJsDebug.Add(new JavaScriptTag(typeof(AppDrive)));
-            lstJsDebug.Add(new JavaScriptTag(typeof(ArquivoDominio), 202));
-            lstJsDebug.Add(new JavaScriptTag(typeof(DominioDriveBase), 201));
-            lstJsDebug.Add(new JavaScriptTag(typeof(DominioWebBase), 200));
-            lstJsDebug.Add(new JavaScriptTag(typeof(SrvWsDrive)));
-            lstJsDebug.Add(new JavaScriptTag(typeof(TransferenciaDominio), 202));
+            lstJs.Add(new JavaScriptTag(typeof(AppDrive)));
+            lstJs.Add(new JavaScriptTag(typeof(ArquivoDominio), 202));
+            lstJs.Add(new JavaScriptTag(typeof(DominioDriveBase), 201));
+            lstJs.Add(new JavaScriptTag(typeof(DominioWebBase), 200));
+            lstJs.Add(new JavaScriptTag(typeof(SrvWsDrive)));
+            lstJs.Add(new JavaScriptTag(typeof(TransferenciaDominio), 202));
         }
 
         protected override void addLayoutFixo(JavaScriptTag tagJs)
